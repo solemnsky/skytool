@@ -3,10 +3,20 @@ name = "skytool"
 version = "0.1.0"
 authors = ["Lewis <lewis@haii.uk>"]
 
+[lib]
+name = "sky"
+
+[[bin]]
+name = "skytool"
+path = "src/skytool.rs"
+
 [dependencies]
 libaltx = { git = "https://gitlab.com/xalri/libaltx.git", features = ["solemnsky"] }
-logger = {  git = "https://gitlab.com/xalri/logger.git" }
+math = {  git = "https://gitlab.com/xalri/altserv_math.git" }
 log = "*"
+zip = "*"
+rustc-serialize = "*"
+
+logger = {  git = "https://gitlab.com/xalri/logger.git" }
 docopt = "0.6"
 docopt_macros = "0.6"
-rustc-serialize = "*"
