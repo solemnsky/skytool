@@ -2,9 +2,9 @@ A tool for working with Solemnsky's environment files.
 
 ## Usage
 ```
-  # Convert an altx file to a .sky:
-  skytool convert <file> [-o <directory>]
-  skytool (-h | --help)
+# Convert an altx file to a .sky:
+skytool convert <file> [-o <directory>]
+skytool (-h | --help)
 
 Options:
   -h --help     Show this screen.
