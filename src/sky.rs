@@ -59,8 +59,8 @@ impl Environment{
     pub fn new() -> Environment{
         Environment{
             map: None,
-            visuals: None,
-            mechanics: None,
+            visuals: Some(Visuals{}),
+            mechanics: Some(Mechanics{}),
         }
     }
 
