@@ -1,16 +1,10 @@
 [package]
-name = "map_test"
+name = "altx2sky"
 version = "0.1.0"
 authors = ["Lewis <lewis@haii.uk>"]
 
 [dependencies]
-piston = "*"
-piston2d-graphics = "*"
-pistoncore-glutin_window = "*"
-piston2d-opengl_graphics = "*"
-
-libaltx = { path="../libaltx" }
+libaltx = { git = "https://gitlab.com/xalri/libaltx.git" }
+logger = {  git = "https://gitlab.com/xalri/logger.git" }
 log = "*"
-env_logger = "*"
-colored = "*"
 rustc-serialize = "*"
