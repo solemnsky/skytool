@@ -11,7 +11,7 @@ name = "skytool"
 path = "src/skytool.rs"
 
 [dependencies]
-libaltx = { git = "https://gitlab.com/xalri/libaltx.git", features = ["solemnsky"] }
+libaltx = { git = "https://gitlab.com/xalri/libaltx.git" }
 math = {  git = "https://gitlab.com/xalri/altserv_math.git" }
 log = "*"
 zip = "*"
