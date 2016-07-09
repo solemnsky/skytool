@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Lewis <lewis@haii.uk>"]
 
 [dependencies]
-libaltx = { git = "https://gitlab.com/xalri/libaltx.git" }
+libaltx = { git = "https://gitlab.com/xalri/libaltx.git", features = ["solemnsky"] }
 logger = {  git = "https://gitlab.com/xalri/logger.git" }
 log = "*"
 docopt = "0.6"

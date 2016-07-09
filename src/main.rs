@@ -7,11 +7,8 @@ extern crate logger;
 extern crate libaltx;
 extern crate docopt;
 
-use std::fs::File;
 use std::path::Path;
-use std::io::Write;
-use libaltx::map::Map;
-use rustc_serialize::json;
+use libaltx::solemnsky::*;
 
 docopt!(Args derive Debug, "
 Usage:
@@ -33,15 +30,14 @@ fn main(){
         let file_name = path.file_name().unwrap().to_str().unwrap();
         if file_name.ends_with(".altx") {
             let map_name = &file_name[0..file_name.len()-5];
-
-            let out = format!("out/{}.map", map_name);
+            let out = format!("{}.sky", map_name);
             info!("Converting {} to {}",file_name,out);
 
-            let mut map = Map::from_altx(map_name);
-            map.clear_geom();
+            let mut env = Environment::new();
+            env.map = Some(Map::from_alt(
+                    &libaltx::map::Map::from_altx(map_name)));
 
-            let mut file = File::create(&out).unwrap();
-            write!(file, "{}", json::encode(&map).unwrap()).unwrap();
+            env.to_sky(&out).unwrap();
         } else {
             error!("Only altx -> sky converion is implemented for now.");
         }
