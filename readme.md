@@ -11,7 +11,8 @@ Options:
 
 ## Compilation
 
-Skytool requires Rust nightly. To compile, run the following:
+Skytool requires Rust nightly. To compile skytool and it's dependencies,
+run the following:
 ```
 cargo build --release
 ```

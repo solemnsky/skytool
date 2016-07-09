@@ -8,10 +8,17 @@ use math::Vec2d;
 use std::fs::File;
 use std::path::*;
 use std::io::Result;
-use rustc_serialize::json;
+use rustc_serialize::*;
+
+#[derive(Debug,RustcDecodable,RustcEncodable)]
+pub struct Visuals{}
+#[derive(Debug,RustcDecodable,RustcEncodable)]
+pub struct Mechanics{}
 
 pub struct Environment{
     pub map: Option<Map>,
+    pub visuals: Option<Visuals>,
+    pub mechanics: Option<Mechanics>,
 }
 
 #[allow(non_snake_case)]
@@ -50,7 +57,11 @@ pub struct Obstacle{
 
 impl Environment{
     pub fn new() -> Environment{
-        Environment{ map: None }
+        Environment{
+            map: None,
+            visuals: None,
+            mechanics: None,
+        }
     }
 
     pub fn to_sky(&self, path: &PathBuf) -> Result<()>{
@@ -59,10 +70,19 @@ impl Environment{
         let file = try!(File::create(path));
         let mut zip = zip::ZipWriter::new(file);
 
-        if let Some(ref map) = self.map {
-            try!(zip.start_file("map.json", Compress::Deflated));
-            try!(write!(zip, "{}", json::encode(map).unwrap()));
-        }
+        fn add_file<T: Encodable>(zip: &mut zip::ZipWriter<File>,
+                      name: &'static str, value: &T) -> Result<()>{
+            try!(zip.start_file(name, Compress::Deflated));
+            try!(write!(zip, "{}", json::encode(value).unwrap()));
+            Ok(())
+        };
+
+        if let Some(ref x) = self.map {
+            try!(add_file(&mut zip, "map.json", x)); }
+        if let Some(ref x) = self.visuals {
+            try!(add_file(&mut zip, "visuals.json", x)); }
+        if let Some(ref x) = self.mechanics {
+            try!(add_file(&mut zip, "mechanics.json", x)); }
 
         Ok(())
     }
