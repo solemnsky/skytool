@@ -1,5 +1,3 @@
-A tool for working with Solemnsky's environment files.
-
 ## Usage
 ```
 # Convert an altx file to a .sky:
