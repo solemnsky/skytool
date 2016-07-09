@@ -12,11 +12,12 @@ use libaltx::solemnsky::*;
 
 docopt!(Args derive Debug, "
 Usage:
-  skytool convert <file>
+  skytool convert <file> [-o <directory>]
   skytool (-h | --help)
 
 Options:
   -h --help     Show this screen.
+  -o --output <directory>  The directory in which to save files [default: ./]
 ");
 
 fn main(){
@@ -30,8 +31,9 @@ fn main(){
         let file_name = path.file_name().unwrap().to_str().unwrap();
         if file_name.ends_with(".altx") {
             let map_name = &file_name[0..file_name.len()-5];
-            let out = format!("{}.sky", map_name);
-            info!("Converting {} to {}",file_name,out);
+            let out = Path::new(&args.flag_output)
+                .join(&format!("{}.sky", map_name));
+            info!("Converting {:?} to {:?}",path,out);
 
             let mut env = Environment::new();
             env.map = Some(Map::from_alt(
