@@ -1,6 +1,6 @@
 ## Usage
 ```
-# Convert an altx file to a .sky:
+# Convert an altx file to .sky:
 skytool convert <file> [-o <directory>]
 skytool (-h | --help)
 
