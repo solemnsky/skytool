@@ -85,7 +85,7 @@ impl Environment{
         fn add_file<T: serde::Serialize>(zip: &mut zip::ZipWriter<File>,
                       name: &'static str, value: &T) -> Result<()>{
             try!(zip.start_file(name, Compress::Deflated));
-            try!(write!(zip, "{}", serde_json::to_string(value).unwrap()));
+            try!(write!(zip, "{}", serde_json::to_string_pretty(value).unwrap()));
             Ok(())
         };
 
