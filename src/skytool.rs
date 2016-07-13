@@ -3,8 +3,8 @@
 
 #[macro_use] extern crate log;
 extern crate logger;
-extern crate sky;
 extern crate rustc_serialize;
+extern crate sky;
 extern crate docopt;
 
 use std::path::Path;
@@ -23,7 +23,7 @@ Options:
 
 fn main(){
     let args: Args = Args::docopt().decode().unwrap_or_else(|e| e.exit());
-    logger::init();
+    let _ = logger::init();
 
     if args.cmd_convert {
         fs::create_dir_all(&args.flag_output)
@@ -40,7 +40,7 @@ fn main(){
             info!("Converting {} to {:?}", map_name, out);
 
             let mut env = Environment::new();
-            env.map = Some(Map::from_altx(map_name));
+            env.map = Some(Map::from_altx(&args.arg_file));
 
             env.to_sky(&out).unwrap();
         } else {

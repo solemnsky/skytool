@@ -15,8 +15,11 @@ libaltx = { git = "https://gitlab.com/xalri/libaltx.git" }
 math = {  git = "https://gitlab.com/xalri/altserv_math.git" }
 log = "*"
 zip = "*"
-rustc-serialize = "*"
+serde = "*"
+serde_macros = "*"
+serde_json = "*"
 
 logger = {  git = "https://gitlab.com/xalri/logger.git" }
 docopt = "0.6"
 docopt_macros = "0.6"
+rustc-serialize = "*" # For docopts
