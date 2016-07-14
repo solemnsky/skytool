@@ -101,12 +101,11 @@ impl Environment{
 }
 
 impl Map{
-    pub fn from_altx(path: &str) -> Map{
+    pub fn from_altx<P: AsRef<Path>>(path: P) -> Map{
         let mut f = File::open(path).unwrap();
         let a = archive::Archive::open(&mut f);
-        let s = a.get_alte().unwrap();
-        let map = map::Map::from_alte(path.to_owned(),
-            &alte::Level::from_str(s));
+        let (name,s) = a.get_alte().unwrap();
+        let map = map::Map::from_alte(name.to_owned(), s);
         Map::from_alt(&map)
     }
 
