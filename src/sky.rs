@@ -64,7 +64,7 @@ pub struct Item{
 pub struct Obstacle{
     pub pos: Vec2d,
     pub localVertices: Vec<Vec2d>,
-    pub damage: i32,
+    pub damage: f64,
 }
 
 impl Environment{
@@ -123,7 +123,7 @@ impl Map{
                             localVertices:
                                 g.hull.iter().map(|x| Vec2d::new(x[0],x[1]))
                                 .collect(),
-                            damage: 1,
+                            damage: g.dmg_mod,
                         });
                     }
                 }
