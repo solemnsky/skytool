@@ -103,9 +103,9 @@ impl Environment{
 impl Map{
     pub fn from_altx<P: AsRef<Path>>(path: P) -> Map{
         let mut f = File::open(path).unwrap();
-        let a = archive::Archive::open(&mut f);
-        let (name,s) = a.get_alte().unwrap();
-        let map = map::Map::from_alte(name.to_owned(), s);
+        let a = archive::Archive::open(&mut f).unwrap();
+        let (meta, s) = a.get_alte().unwrap();
+        let map = map::Map::from_alte(s, Some(meta));
         Map::from_alt(&map)
     }
 
@@ -113,13 +113,13 @@ impl Map{
         debug!("writing solemnsky map");
         for v in &map.views{
             if v.name == "Game"{
-                let dimensions = Vec2d::new(v.size[0],v.size[1]);
+                let dimensions = Vec2d::new(v.size[0] as f64, v.size[1] as f64);
                 let mut obstacles = Vec::new();
                 let mut spawn_points = Vec::new();
                 for g in &v.geometry{
                     if g.collidable{
                         obstacles.push(Obstacle{
-                            pos: Vec2d::new(g.pos[0],g.pos[1]),
+                            pos: Vec2d::new(g.pos[0] as f64, g.pos[1] as f64),
                             localVertices:
                                 g.hull.iter().map(|x| Vec2d::new(x[0],x[1]))
                                 .collect(),
@@ -129,7 +129,7 @@ impl Map{
                 }
                 for x in &v.spawn_points{
                     spawn_points.push(Spawn{
-                        pos: Vec2d::new(x.pos[0], x.pos[1]),
+                        pos: Vec2d::new(x.pos[0] as f64, x.pos[1] as f64),
                         angle: Angle::new(x.angle as f32),
                         team: x.team as u16,
                     });
